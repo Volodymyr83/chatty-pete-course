@@ -29,7 +29,7 @@ export const ChatSidebar = ({ chatId }) => {
       >
         <FontAwesomeIcon icon={faPlus} /> New chat
       </Link>
-      <div className="flex-1 overflow-auto bg-gray-950">
+      <div className="text- flex-1 overflow-auto bg-gray-950">
         {chatList.map((chat) => (
           <Link
             key={chat._id}
@@ -38,7 +38,13 @@ export const ChatSidebar = ({ chatId }) => {
               chatId === chat._id ? "bg-gray-700 hover:bg-gray-700" : ""
             }`}
           >
-            <FontAwesomeIcon icon={faMessage} /> <span title={chat.title} className="overflow-hidden text-ellipsis whitespace-nowrap">{chat.title}</span>
+            <FontAwesomeIcon icon={faMessage} className="text-white/50" />{" "}
+            <span
+              title={chat.title}
+              className="overflow-hidden text-ellipsis whitespace-nowrap"
+            >
+              {chat.title}
+            </span>
           </Link>
         ))}
       </div>

@@ -2,6 +2,8 @@ import Head from "next/head";
 import Link from "next/link";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { getSession } from "@auth0/nextjs-auth0";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faRobot } from "@fortawesome/free-solid-svg-icons";
 
 export default function Home() {
   const { isLoading, error, user } = useUser();
@@ -15,22 +17,27 @@ export default function Home() {
         <title>Chatty Pete - Login or Signup</title>
       </Head>
       <div className="flex min-h-screen w-full items-center justify-center bg-gray-800 text-center text-white">
-        <div>
-          {!!user && (
-            <Link href="/api/auth/logout" className="btn">
-              Logout
-            </Link>
-          )}
-          {!user && (
-            <>
-              <Link href="/api/auth/login" className="btn">
-                Log in
-              </Link>
-              <Link href="/api/auth/signup" className="btn">
-                Sign up
-              </Link>
-            </>
-          )}
+        <div className="flex flex-col gap-3">
+          <div>
+            <FontAwesomeIcon
+              icon={faRobot}
+              className="text-6xl text-emerald-200"
+            />
+          </div>
+          <h1 className="text-4xl font-bold">Welcome to Chatty Pete</h1>
+          <p className="text-lg mb-2">Log in with your account to continue</p>
+          <div className="flex justify-center gap-3">
+            {!user && (
+              <>
+                <Link href="/api/auth/login" className="btn">
+                  Log in
+                </Link>
+                <Link href="/api/auth/signup" className="btn">
+                  Sign up
+                </Link>
+              </>
+            )}
+          </div>
         </div>
       </div>
     </>
