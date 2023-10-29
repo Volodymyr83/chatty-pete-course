@@ -1,4 +1,3 @@
-import { headers } from "next/dist/client/components/headers";
 import { OpenAIEdgeStream } from "openai-edge-stream";
 
 export const config = {

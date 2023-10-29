@@ -9,10 +9,38 @@ export default async function handler(req, res) {
     const db = client.db("ChattyPete");
 
     const { chatId, role, content } = req.body;
+    let objectId;
+
+    try {
+      objectId = new ObjectId(chatId);
+    } catch (e) {
+      return res.status(422).json({
+        message: "Invalid chat ID",
+      });
+    }
+
+    // Validate content data
+    if (
+      !content ||
+      typeof content !== "string" ||
+      (role === "user" && content.length >= 200) ||
+      (role === "assistant" && content.length > 100000)
+    ) {
+      return res.status(422).json({
+        message: "content is required and must be less than 200 characters",
+      });
+    }
+
+    // Validate role
+    if (!["user", "assistant"].includes(role)) {
+      return res.status(422).json({
+        message: "role must be either 'assistant' or 'user'",
+      });
+    }
 
     const chat = await db.collection("chats").findOneAndUpdate(
       {
-        _id: new ObjectId(chatId),
+        _id: objectId,
         userId: user.sub,
       },
       {
